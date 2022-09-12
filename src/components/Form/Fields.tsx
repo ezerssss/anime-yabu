@@ -24,6 +24,10 @@ function Fields(props: FieldsProps) {
   });
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputTypes, setInputTypes] = useState<Record<string, string>>({
+    password: 'password',
+    confirmPassword: 'password',
+  });
 
   const renderFirstFieldText = isLoggingIn ? 'Login' : 'Email';
   const renderEmailInvalidText = !isEmailValid && (
@@ -40,6 +44,20 @@ function Fields(props: FieldsProps) {
     }
 
     setFieldValues({ ...fieldValues, ...newKeyValuePair });
+  }
+
+  function handleChangeInputType(field: string): void {
+    const newKeyValuePair: Record<string, string> = {};
+
+    if (inputTypes[field] === 'password') {
+      newKeyValuePair[field] = 'text';
+      setInputTypes({ ...inputTypes, ...newKeyValuePair });
+
+      return;
+    }
+
+    newKeyValuePair[field] = 'password';
+    setInputTypes({ ...inputTypes, ...newKeyValuePair });
   }
 
   function resetFieldValues(): void {
@@ -109,11 +127,14 @@ function Fields(props: FieldsProps) {
         <input
           className="rounded-lg h-16 w-80 bg-[#574E5A] border-white border-[2px] p-[22px]"
           placeholder="• • • • • • •"
-          type="password"
+          type={inputTypes.confirmPassword}
           value={fieldValues.confirmPassword}
           onChange={(e) => handleTextChange('confirmPassword', e.target.value)}
         />
-        <AiFillEye className="absolute right-[22px] bottom-[22px] cursor-pointer" />
+        <AiFillEye
+          className="absolute right-[22px] bottom-[22px] cursor-pointer"
+          onClick={() => handleChangeInputType('confirmPassword')}
+        />
       </div>
       {renderPasswordDoesNotMatch}
     </div>
@@ -155,11 +176,14 @@ function Fields(props: FieldsProps) {
         <input
           className="rounded-lg h-16 w-80 bg-[#574E5A] border-white border-[2px] p-[22px]"
           placeholder="• • • • • • •"
-          type="password"
+          type={inputTypes.password}
           value={fieldValues.password}
           onChange={(e) => handleTextChange('password', e.target.value)}
         />
-        <AiFillEye className="absolute right-[22px] bottom-[22px] cursor-pointer" />
+        <AiFillEye
+          className="absolute right-[22px] bottom-[22px] cursor-pointer"
+          onClick={() => handleChangeInputType('password')}
+        />
       </div>
       {renderConfirmPassword}
 
