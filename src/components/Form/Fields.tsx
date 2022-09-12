@@ -171,19 +171,24 @@ function Fields(props: FieldsProps) {
         />
         {renderEmailInvalidText}
       </div>
-      <div className="mb-6 relative">
+      <div className="mb-6 ">
         <p className="text-sm">Senha</p>
-        <input
-          className="rounded-lg h-16 w-80 bg-[#574E5A] border-white border-[2px] p-[22px]"
-          placeholder="• • • • • • •"
-          type={inputTypes.password}
-          value={fieldValues.password}
-          onChange={(e) => handleTextChange('password', e.target.value)}
-        />
-        <AiFillEye
-          className="absolute right-[22px] bottom-[22px] cursor-pointer"
-          onClick={() => handleChangeInputType('password')}
-        />
+        <div className="relative">
+          <input
+            className="rounded-lg h-16 w-80 bg-[#574E5A] border-white border-[2px] p-[22px]"
+            placeholder="• • • • • • •"
+            type={inputTypes.password}
+            value={fieldValues.password}
+            onChange={(e) => handleTextChange('password', e.target.value)}
+          />
+          <AiFillEye
+            className="absolute right-[22px] bottom-[22px] cursor-pointer"
+            onClick={() => handleChangeInputType('password')}
+          />
+        </div>
+        <p className="text-right text-sm mt-2 text-[#E487FB] cursor-pointer">
+          Esqueci a senha
+        </p>
       </div>
       {renderConfirmPassword}
 
